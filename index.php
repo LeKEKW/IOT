@@ -1,29 +1,9 @@
 <?php 
   session_start();
-  if (isset($_SESSION['login']) && isset($_SESSION['type'])) {
+  if (isset($_SESSION['login'])) {
     $login = $_SESSION['login'];
     include("connexion.php");
-    if ($_SESSION['type']=="student") {
-      $sql = "SELECT * FROM etudiant WHERE email = '".$login."'";
-      $result = mysqli_query($conn,$sql);
-      $visite = mysqli_fetch_assoc($result);
-      if ($visite['visite']==1) {
-        header("location:index_et.php");
-      }else {
-        header("location:./etudiant/infos.php");
-      }
-    }elseif ($_SESSION['type']=="prof") {
-      $sql = "SELECT * FROM enseignant WHERE email = '".$login."'";
-      $result = mysqli_query($conn,$sql);
-      $visite = mysqli_fetch_assoc($result);
-      if ($visite['visite']==1) {
-        header("location:index_pr.php");
-      }else {
-        header("location:./prof/change_pass.php");
-      }
-    }elseif ($_SESSION['type']=="admin") {
-      header("location:index_ad.php");
-    }
+    header("location:index_ad.php");
   }
 ?>
 <!DOCTYPE html>
